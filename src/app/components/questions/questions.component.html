@@ -1,0 +1,22 @@
+<form [formGroup]="assessmentForm" *ngIf="questions" (ngSubmit)="checkScore()" >
+    <ng-template [ngIf]="questions[questionNumber - 1].id === questionNumber">
+        <p class="question">{{questions[questionNumber - 1].question}}</p>
+        <fieldset>
+            <ng-template ngFor let-option [ngForOf]="questions[questionNumber - 1].options" let-optionIndex="index">
+                <input type="radio"
+                    formControlName="question_{{questionNumber}}_options"
+                    id="question_{{questionNumber}}_option_{{optionIndex+1}}"
+                    name="question_{{questionNumber}}_options" [value]="option.id"
+                    [class.error]="showError"
+                    [(ngModel)]="questions[questionNumber - 1].selected">
+                <label for="question_{{questionNumber}}_option_{{optionIndex+1}}">{{option.option}}</label>
+            </ng-template>
+        </fieldset>
+    </ng-template>
+    <div *ngIf="questions" class="button-bar">
+        <button type="button" class="previous-button" (click)="previousQuestion()" [disabled]="questionNumber === 1">Previous</button>
+        <button type="button" class="next-button" (click)="nextQuestion()" *ngIf="questions.length !== questionNumber">Next</button>
+        <button type="submit" class="score-button" *ngIf="questions.length === questionNumber" [disabled]="!questions[questionNumber-1].selected">Check Score</button>
+        <div class="clearfix"></div>
+    </div>
+</form>

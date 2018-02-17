@@ -1,0 +1,13 @@
+<header>
+  <h1>Assessment</h1>
+</header>
+<main>
+  <div class="main">
+    <app-questions [questions]="questions" *ngIf="!showScore && questions" (checkScoreEvent)="calculateScore()"></app-questions>
+    <div *ngIf="showScore" class="score">
+      <h2>Your Score</h2>
+      <h3>{{score}}</h3>
+    </div>
+  </div>
+</main>
+<footer></footer>
